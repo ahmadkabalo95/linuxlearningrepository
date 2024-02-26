@@ -106,5 +106,3 @@ Welcome to my Linux learning journey! This repository serves as my documentation
 
 Feel free to explore and try out these commands in your Linux environment. Happy learning!
 ```
-
-Copy this text and save it in a file with the ".md" extension, such as "Linux_Learning_Day1.md". You can then upload or push this file to your GitHub repository.
