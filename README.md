@@ -1,6 +1,4 @@
-Certainly! Here's the content formatted as a Markdown (MD) file:
 
-```markdown
 # Linux Learning Repository
 
 Welcome to my Linux learning journey! This repository serves as my documentation as I explore the world of Linux. Each day, I'll be documenting new concepts, commands, and tips that I learn.
