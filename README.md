@@ -85,7 +85,7 @@ Welcome to my Linux learning journey! This repository serves as my documentation
     - Open a text file for editing.
 
     ```bash
-    nano filename.txt
+    nano filename.txt  
     ```
 
 ### Miscellaneous Commands
