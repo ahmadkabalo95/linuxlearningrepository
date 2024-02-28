@@ -103,9 +103,6 @@ Welcome to my Linux learning journey! This repository serves as my documentation
     ```bash
     history
     ```
-
-Certainly! User management in a Linux/Unix environment involves creating, modifying, and deleting user accounts, as well as managing user privileges and permissions. Here are some key commands and concepts related to user management:
-
 ## 1. User Creation
 
 ### Add a User
