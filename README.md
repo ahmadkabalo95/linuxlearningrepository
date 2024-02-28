@@ -104,5 +104,111 @@ Welcome to my Linux learning journey! This repository serves as my documentation
     history
     ```
 
-Feel free to explore and try out these commands in your Linux environment. Happy learning!
+Certainly! User management in a Linux/Unix environment involves creating, modifying, and deleting user accounts, as well as managing user privileges and permissions. Here are some key commands and concepts related to user management:
+
+## 1. User Creation
+
+### Add a User
+```bash
+sudo adduser [username]
+```
+
+### Set Password for a User
+```bash
+sudo passwd [username]
+```
+
+## 2. User Modification
+
+### Change User Password
+```bash
+passwd [username]
+```
+
+### Modify User Details
+```bash
+sudo usermod -c "New User Name" [username]
+```
+
+### Add User to a Group
+```bash
+sudo usermod -aG [group] [username]
+```
+
+### Remove User from a Group
+```bash
+sudo deluser [username] [group]
+```
+
+## 3. User Deletion
+
+### Delete User
+```bash
+sudo deluser [username]
+```
+
+### Delete User and Home Directory
+```bash
+sudo deluser --remove-home [username]
+```
+
+## 4. User Information
+
+### Display User Information
+```bash
+id [username]
+```
+
+### Display Logged-In Users
+```bash
+who
+```
+
+### Display Last Login Information
+```bash
+last [username]
+```
+
+## 5. Switching Users
+
+### Switch to Another User
+```bash
+su [username]
+```
+
+### Switch to Root User
+```bash
+sudo su
+```
+
+## 6. Password Policies
+
+### Lock User Account
+```bash
+sudo passwd -l [username]
+```
+
+### Unlock User Account
+```bash
+sudo passwd -u [username]
+```
+
+## 7. File Permissions
+
+### Check File Ownership
+```bash
+ls -l [filename]
+```
+
+### Change File Ownership
+```bash
+sudo chown [username] [filename]
+```
+
+### Change File Permissions
+```bash
+chmod [permissions] [filename]
+```
+
+These commands provide a foundation for managing user accounts in a Linux/Unix system. User management is an essential part of system administration to ensure proper access control and security. Always refer to the manual pages (`man [command]`) for detailed information and options.
 ```
