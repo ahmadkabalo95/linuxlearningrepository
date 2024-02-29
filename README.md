@@ -201,9 +201,6 @@ ls -l [filename]
 ```bash
 sudo chown [username] [filename]
 ```
-
-### Change File Permissions
-```bash
 chmod [permissions] [filename]
 ```
 
