@@ -1,208 +1,74 @@
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#007bff', 'edgeLabelBackground':'#f4f4f4', 'tertiaryColor': '#fff'}}}%%
 
-# Linux Learning Repository
+graph TD
+    %% Define external entity
+    User[<i class='fa fa-user'></i> User / Admin]
 
-Welcome to my Linux learning journey! This repository serves as my documentation as I explore the world of Linux. Each day, I'll be documenting new concepts, commands, and tips that I learn.
+    %% Define physical hardware cluster
+    subgraph Physical_Hardware [Hypervisor Cluster]
+        style Physical_Hardware fill:#eee,stroke:#333,stroke-width:1px,stroke-dasharray: 5 5
 
-## Day 1: Introduction to Bash Commands
+        %% Proxmox Host
+        PVE[<i class='fa fa-server'></i> Proxmox VE Host<br>(Bare Metal)]
 
-### Basic Commands
+        %% Logical connection (Virtualization)
+        PVE -.- Virtual_Machines
 
-1. **`pwd` - Print Working Directory:**
-   - Display the current working directory.
+        %% Subgraph for VMs and Containers
+        subgraph Virtual_Machines [Virtualized Environment]
+            style Virtual_Machines fill:#fefefe,stroke:#999,stroke-width:1px
 
-   ```bash
-   pwd
-   ```
+            %% Network & Management Services
+            subgraph Mgmt_Net_Services [Infrastructure & Networking]
+                style Mgmt_Net_Services fill:#e3f2fd,stroke:#90caf9
+                DNS[<i class='fa fa-globe'></i> BIND DNS]
+                DHCP[<i class='fa fa-network-wired'></i> DHCP Server]
+                Ansible[<i class='fa fa-cogs'></i> Ansible Admin Node]
+            end
 
-2. **`ls` - List Files:**
-   - List the files and directories in the current directory.
+            %% Security & Control Services
+            subgraph Security_Control [Security & Control]
+                style Security_Control fill:#e8f5e9,stroke:#a5d6a7
+                Gitea[<i class='fa fa-code-branch'></i> Gitea (Version Control)]
+                Lynis[<i class='fa fa-shield-alt'></i> Lynis Audit Scripts]
+                %% Automation relationship
+                Ansible -- Manages --> Gitea
+                Ansible -- Deploys --> Docker_Host_Ubuntu
+                Ansible -- Deploys --> Docker_Host_RHEL
+            end
 
-   ```bash
-   ls
-   ```
+            %% Application Hosting
+            subgraph App_Hosting [Container Ecosystem]
+                style App_Hosting fill:#fff3e0,stroke:#ffcc80
 
-3. **`cd` - Change Directory:**
-   - Move to a different directory.
+                %% Ubuntu Docker Host
+                Docker_Host_Ubuntu[<i class='fa fa-ubuntu'></i> Ubuntu VM<br>(Docker Host)]
+                subgraph Ubuntu_Docker [Docker Containers (Debian)]
+                    style Ubuntu_Docker fill:#fff,stroke:#bbb,stroke-width:1px
+                    Portainer[<i class='fa fa-ship'></i> Portainer]
+                    MySQL[<i class='fa fa-database'></i> MySQL DB]
+                end
 
-   ```bash
-   cd /path/to/directory
-   ```
+                %% RedHat Docker Host
+                Docker_Host_RHEL[<i class='fa fa-redhat'></i> RHEL/Rocky VM<br>(Docker Host)]
+                subgraph RHEL_Docker [Docker Containers (RHEL)]
+                    style RHEL_Docker fill:#fff,stroke:#bbb,stroke-width:1px
+                    NPM[<i class='fa fa-random'></i> Nginx Proxy Manager]
+                    Homarr[<i class='fa fa-home'></i> Homarr Dashboard]
+                end
+                
+                %% Connect Docker Hosts to their containers logically
+                Docker_Host_Ubuntu -- Orchestrates --> Ubuntu_Docker
+                Docker_Host_RHEL -- Orchestrates --> RHEL_Docker
+            end
+        end
+    end
 
-### File and Directory Operations
-
-4. **`mkdir` - Make Directory:**
-   - Create a new directory.
-
-   ```bash
-   mkdir new_directory
-   ```
-
-5. **`touch` - Create Empty File:**
-   - Create a new empty file.
-
-   ```bash
-   touch new_file.txt
-   ```
-
-6. **`cp` - Copy:**
-   - Copy files or directories.
-
-   ```bash
-   cp source_file destination
-   ```
-
-7. **`mv` - Move/Rename:**
-   - Move files or directories, or rename them.
-
-   ```bash
-   mv old_name new_name
-   ```
-
-8. **`rm` - Remove:**
-   - Delete files or directories. Be careful, as this operation is irreversible.
-
-   ```bash
-   rm file.txt
-   ```
-
-### File Content Manipulation
-
-9. **`cat` - Concatenate and Display:**
-   - Display the content of a file.
-
-   ```bash
-   cat filename.txt
-   ```
-
-10. **`echo` - Output:**
-    - Print text to the terminal.
-
-    ```bash
-    echo "Hello, Linux!"
-    ```
-
-11. **`nano` - Simple Text Editor:**
-    - Open a text file for editing.
-
-    ```bash
-    nano filename.txt  
-    ```
-
-### Miscellaneous Commands
-
-12. **`man` - Manual Pages:**
-    - Access the manual pages for a command to get detailed information.
-
-    ```bash
-    man ls
-    ```
-
-13. **`history` - Command History:**
-    - Display a list of recently executed commands.
-
-    ```bash
-    history
-    ```
-## 1. User Creation
-
-### Add a User
-```bash
-sudo adduser [username]
-```
-
-### Set Password for a User
-```bash
-sudo passwd [username]
-```
-
-## 2. User Modification
-
-### Change User Password
-```bash
-passwd [username]
-```
-
-### Modify User Details
-```bash
-sudo usermod -c "New User Name" [username]
-```
-
-### Add User to a Group
-```bash
-sudo usermod -aG [group] [username]
-```
-
-### Remove User from a Group
-```bash
-sudo deluser [username] [group]
-```
-
-## 3. User Deletion
-
-### Delete User
-```bash
-sudo deluser [username]
-```
-
-### Delete User and Home Directory
-```bash
-sudo deluser --remove-home [username]
-```
-
-## 4. User Information
-
-### Display User Information
-```bash
-id [username]
-```
-
-### Display Logged-In Users
-```bash
-who
-```
-
-### Display Last Login Information
-```bash
-last [username]
-```
-
-## 5. Switching Users
-
-### Switch to Another User
-```bash
-su [username]
-```
-
-### Switch to Root User
-```bash
-sudo su
-```
-
-## 6. Password Policies
-
-### Lock User Account
-```bash
-sudo passwd -l [username]
-```
-
-### Unlock User Account
-```bash
-sudo passwd -u [username]
-```
-
-## 7. File Permissions
-
-### Check File Ownership
-```bash
-ls -l [filename]
-```
-
-### Change File Ownership
-```bash
-sudo chown [username] [filename]
-```
-chmod [permissions] [filename]
-```
-
-These commands provide a foundation for managing user accounts in a Linux/Unix system. User management is an essential part of system administration to ensure proper access control and security. Always refer to the manual pages (`man [command]`) for detailed information and options.
-```
+    %% Network Flow
+    User -->|Accesses via VPN/Local| NPM
+    NPM -->|Routes traffic to| Homarr
+    NPM -->|Routes traffic to| Portainer
+    NPM -->|Connects to| MySQL
+    
+    Portainer -.->|Manages Containers on| Ubuntu_Docker
+    Portainer -.->|Manages Containers on| RHEL_Docker
